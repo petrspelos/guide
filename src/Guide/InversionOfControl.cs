@@ -1,12 +1,15 @@
 using Discord.WebSocket;
 using Guide.Configuration;
 using Guide.Connection;
+using Guide.GitWeek;
 using Guide.Handlers;
 using Guide.Json;
 using Guide.Logging;
 using Guide.Language;
 using Lamar;
 using Guide.Services;
+using Octokit;
+using IConnection = Guide.Connection.IConnection;
 
 namespace Guide
 {
@@ -40,10 +43,12 @@ namespace Guide
                 c.For<IConfiguration>().Use<ConfigManager>();
                 c.For<ICommandHandler>().Use<DiscordCommandHandler>();
                 c.For<ILogger>().Use<ConsoleLogger>();
+                c.For<IGitUserVerification>().Use<GitUserVerification>();
                 c.ForSingletonOf<IJsonStorage>().UseIfNone<JsonStorage>();
                 c.ForSingletonOf<ILanguage>().UseIfNone<JsonLanguage>();
                 c.ForSingletonOf<WelcomeMessageService>().UseIfNone<WelcomeMessageService>();
                 c.ForSingletonOf<DiscordSocketClient>().UseIfNone(DiscordSocketClientFactory.GetDefault());
+                c.ForSingletonOf<GitHubClient>().UseIfNone(GithubClientFactory.GetDefault());
             });
         }
     }
