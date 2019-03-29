@@ -32,17 +32,11 @@ namespace Guide.GitWeek
                 .GetVerifiedUsers()
                 .Select(p => GetParticipant(p.Key, p.Value));
 
-        public string GetLeaderboards()
+        public string[] GetLeaderboards()
         {
             var users = GetParticipants();
-            var sb = new StringBuilder();
 
-            foreach (var user in users.OrderByDescending(u => u.CommitsByDate.Sum(c => c.Value)))
-            {
-                sb.AppendLine(GetStats(user));
-            }
-
-            return sb.ToString();
+            return users.OrderByDescending(u => u.CommitsByDate.Sum(c => c.Value)).Select(user => GetStats(user)).ToArray();
         }
 
         private string GetStats(GitweekParticipant user)

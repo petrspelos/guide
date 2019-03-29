@@ -57,9 +57,12 @@ namespace Guide.Modules
         {
             try
             {
+                await ReplyAsync("I'm on it. It will take some time in order to not spam GitHub (and get destroyed by Microsoft as a result).\n\nOh and Discord will not be happy with me posting so much stuff at once, so I'll go checkout r/unixporn each time they rate limit me. We could switch our IP and pretend to be a different shard but that sounds like work.");
                 var tutorialGuild = _client.GetGuild(Constants.TutorialGuildId);
                 var channel = tutorialGuild.GetTextChannel(Constants.ScoreboardId);
-                await channel.SendMessageAsync(_gitweekStats.GetLeaderboards());
+                var users = _gitweekStats.GetLeaderboards();
+                foreach(var user in users)
+                    await channel.SendMessageAsync(user);
             }
             catch (Exception e)
             {
