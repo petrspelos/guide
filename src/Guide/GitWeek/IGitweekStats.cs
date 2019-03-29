@@ -5,6 +5,6 @@ namespace Guide.GitWeek
     public interface IGitweekStats
     {
         IEnumerable<GitweekParticipant> GetParticipants();
-        string GetLeaderboards();
+        string[] GetLeaderboards();
     }
 }
