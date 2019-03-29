@@ -67,6 +67,9 @@ namespace Guide.GitWeek
             
             var user = await _github.User.Get(githubUsername);
 
+            if(user.Bio is null)
+                throw new Exception("Your Bio is empty.");
+            
             if (!user.Bio.Contains(expectedHash))
                 throw new Exception("Your GitHub bio does not contain the expected hash.");
 
