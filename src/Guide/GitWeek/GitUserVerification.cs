@@ -67,6 +67,9 @@ namespace Guide.GitWeek
             
             var user = await _github.User.Get(githubUsername);
 
+            if(user.Bio is null)
+                throw new Exception("Your Bio is empty.");
+            
             if (!user.Bio.Contains(expectedHash))
                 throw new Exception("Your GitHub bio does not contain the expected hash.");
 
@@ -75,6 +78,9 @@ namespace Guide.GitWeek
             _storage.Store(_verification, "verification.json", Formatting.Indented);
             return true;
         }
+
+        public Dictionary<ulong, string> GetVerifiedUsers()
+            => _verification.VerifiedUsers;
 
         private static byte[] GetHash(string inputString)
         {
