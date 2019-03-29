@@ -44,6 +44,7 @@ namespace Guide
                 c.For<ICommandHandler>().Use<DiscordCommandHandler>();
                 c.For<ILogger>().Use<ConsoleLogger>();
                 c.For<IGitUserVerification>().Use<GitUserVerification>();
+                c.For<IGitweekStats>().Use<GitweekStats>();
                 c.ForSingletonOf<IJsonStorage>().UseIfNone<JsonStorage>();
                 c.ForSingletonOf<ILanguage>().UseIfNone<JsonLanguage>();
                 c.ForSingletonOf<WelcomeMessageService>().UseIfNone<WelcomeMessageService>();

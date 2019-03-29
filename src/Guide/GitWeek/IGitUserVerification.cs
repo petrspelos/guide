@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Guide.GitWeek
@@ -6,5 +7,6 @@ namespace Guide.GitWeek
     {
         Task<string> GetVerificationStringFor(ulong userId, string githubUsername);
         Task<bool> Verify(ulong userId, string githubUsername);
+        Dictionary<ulong, string> GetVerifiedUsers();
     }
 }

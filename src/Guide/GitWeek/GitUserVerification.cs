@@ -79,6 +79,9 @@ namespace Guide.GitWeek
             return true;
         }
 
+        public Dictionary<ulong, string> GetVerifiedUsers()
+            => _verification.VerifiedUsers;
+
         private static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = SHA256.Create();

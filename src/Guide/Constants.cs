@@ -9,12 +9,14 @@ namespace Guide
         public const string LanguageFile = "Lang/english.json";
 
 #if DEBUG
+        public const ulong ScoreboardId = 560884884986527774;
         public const ulong TutorialGuildId = 538334113019723776;
         public const ulong WaitingRoomId = 560835975052263434;
         public const ulong GeneralId = 538334113501937667;
         public const ulong MemberRoleId = 560836164647649329;
         public const ulong HelperRoleId = 560836219953479681;
 #else
+        public const ulong ScoreboardId = 560870504144306188;
         public const ulong TutorialGuildId = 377879473158356992;
         public const ulong WaitingRoomId = 411864218548043785;
         public const ulong GeneralId = 377879473644765185;
