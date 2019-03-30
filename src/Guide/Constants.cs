@@ -9,8 +9,8 @@ namespace Guide
         public const string LanguageFile = "Lang/english.json";
 
 #if DEBUG
-        public const ulong ScoreboardId = 560884884986527774;
-        public const ulong TutorialGuildId = 538334113019723776;
+        public const ulong ScoreboardId = 513467883825922063;
+        public const ulong TutorialGuildId = 513451922586468353;
         public const ulong WaitingRoomId = 560835975052263434;
         public const ulong GeneralId = 538334113501937667;
         public const ulong MemberRoleId = 560836164647649329;

@@ -15,8 +15,8 @@ namespace Guide.GitWeek
         private const string FutureDayIcon = ":black_square_button:";
         private const string NoneDayIcon = ":black_medium_square:";
         
-        private readonly DateTime warmupStart = new DateTime(2019, 3, 28);
-        private readonly DateTime gitweekStart = new DateTime(2019, 3, 31);
+        public DateTime WarmupStart { get; set; } = new DateTime(2019, 3, 28);
+        public DateTime GitweekStart { get; set; } = new DateTime(2019, 3, 31);
         private readonly Regex commitRegex = new Regex("<rect .*?data-count=\"(\\d+)\" data-date=\"(\\d{4}-\\d{2}-\\d{2})\"\\/>");
         private readonly IGitUserVerification _verification;
         private readonly GitHubClient _github;
@@ -39,17 +39,17 @@ namespace Guide.GitWeek
             return users.OrderByDescending(u => u.CommitsByDate.Sum(c => c.Value)).Select(user => GetStats(user)).ToArray();
         }
 
-        private string GetStats(GitweekParticipant user)
+        public string GetStats(GitweekParticipant user)
         {
             var sb = new StringBuilder();
 
             var warmupCommits = user.CommitsByDate.Where(c =>
-                c.Key.Date >= warmupStart.Date &&
-                c.Key.Date <= gitweekStart.Date)
+                c.Key.Date >= WarmupStart.Date &&
+                c.Key.Date <= GitweekStart.Date)
                 .ToArray();
 
             var gitweekCommits = user.CommitsByDate.Where(c =>
-                c.Key.Date > gitweekStart.Date)
+                c.Key.Date > GitweekStart.Date)
                 .ToArray();
             
             sb.AppendLine($"__**{user.GitHubUsername}**__");
@@ -65,13 +65,13 @@ namespace Guide.GitWeek
         {
             var sb = new StringBuilder();
 
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(1)));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(2)));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(3)));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(4)));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(5)));
-            sb.Append(GetIconForDay(gitweekCommits, gitweekStart.AddDays(6)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(1)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(2)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(3)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(4)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(5)));
+            sb.Append(GetIconForDay(gitweekCommits, GitweekStart.AddDays(6)));
             
             return sb.ToString();
         }
@@ -83,10 +83,10 @@ namespace Guide.GitWeek
             sb.Append(NoneDayIcon);
             sb.Append(NoneDayIcon);
             sb.Append(NoneDayIcon);
-            sb.Append(GetIconForDay(warmupCommits, warmupStart));
-            sb.Append(GetIconForDay(warmupCommits, warmupStart.AddDays(1)));
-            sb.Append(GetIconForDay(warmupCommits, warmupStart.AddDays(2)));
-            sb.Append(GetIconForDay(warmupCommits, warmupStart.AddDays(3)));
+            sb.Append(GetIconForDay(warmupCommits, WarmupStart));
+            sb.Append(GetIconForDay(warmupCommits, WarmupStart.AddDays(1)));
+            sb.Append(GetIconForDay(warmupCommits, WarmupStart.AddDays(2)));
+            sb.Append(GetIconForDay(warmupCommits, WarmupStart.AddDays(3)));
             
             return sb.ToString();
         }
@@ -121,7 +121,7 @@ namespace Guide.GitWeek
                 foreach (Match match in matches)
                 {
                     var date = DateTime.Parse(match.Groups[2].Value);
-                    if (date.Date >= warmupStart.Date)
+                    if (date.Date >= WarmupStart.Date)
                     {
                         res.Add(date, int.Parse(match.Groups[1].Value));
                     }
@@ -132,6 +132,6 @@ namespace Guide.GitWeek
         }
 
         private bool IsGitweek()
-            => DateTime.Now < gitweekStart;
+            => DateTime.Now < GitweekStart;
     }
 }
