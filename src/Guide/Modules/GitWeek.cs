@@ -87,7 +87,8 @@ namespace Guide.Modules
 
 
                         if (!userRankMessage.Content.Contains($"{warmupCommits.Sum(c => c.Value)} commits")
-                            || !userRankMessage.Content.Contains($"{gitweekCommits.Sum(c => c.Value)} commits"))
+                            || !userRankMessage.Content.Contains($"{gitweekCommits.Sum(c => c.Value)} commits")
+                            || MessageWasNotEditedToday(userRankMessage))
                         {
                             await userRankMessage.ModifyAsync(x => x.Content = rankString);
                         }
@@ -100,5 +101,8 @@ namespace Guide.Modules
                 await ReplyAsync($":x: {e.Message}");
             }
         }
+
+        private static bool MessageWasNotEditedToday(IMessage message) 
+            => (message.EditedTimestamp?.Date ?? message.Timestamp.Date) < DateTime.Now.Date;
     }
 }
