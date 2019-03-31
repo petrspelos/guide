@@ -16,7 +16,7 @@ namespace Guide.GitWeek
         private const string NoneDayIcon = ":black_medium_square:";
         
         public DateTime WarmupStart { get; set; } = new DateTime(2019, 3, 28);
-        public DateTime GitweekStart { get; set; } = new DateTime(2019, 3, 31);
+        public DateTime GitweekStart { get; set; } = new DateTime(2019, 4, 1);
         private readonly Regex commitRegex = new Regex("<rect .*?data-count=\"(\\d+)\" data-date=\"(\\d{4}-\\d{2}-\\d{2})\"\\/>");
         private readonly IGitUserVerification _verification;
         private readonly GitHubClient _github;
