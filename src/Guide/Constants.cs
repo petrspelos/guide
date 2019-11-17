@@ -17,6 +17,7 @@ namespace Guide
         public const string PKWhileYouWait = "WELCOME_EMBED_WHILE_YOU_WAIT";
         public const string PKFunServerFact = "FUN_SERVER_FACT";
         public const string PKUserJoinedTitle = "USER_JOINED_TITLE";
+        public const string TokenVariable = "GUIDE_BOT_TOKEN";
         public static readonly Color PrimaryColor = new Color(41, 182, 246);
     }
 }

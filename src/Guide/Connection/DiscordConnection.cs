@@ -1,7 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
-using Guide.Configuration;
 using Guide.Logging;
 
 namespace Guide.Connection
@@ -9,20 +9,18 @@ namespace Guide.Connection
     public class DiscordConnection : IConnection
     {
         private readonly DiscordSocketClient client;
-        private readonly IConfiguration config;
         private readonly ILogger logger;
 
-        public DiscordConnection(DiscordSocketClient client, IConfiguration config, ILogger logger)
+        public DiscordConnection(DiscordSocketClient client, ILogger logger)
         {
             this.client = client;
-            this.config = config;
             this.logger = logger;
         }
 
         public async Task Connect()
         {
             client.Log += logger.Log;
-            await client.LoginAsync(TokenType.Bot, config.GetValueFor(Constants.ConfigKeyToken));
+            await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable(Constants.TokenVariable));
             await client.StartAsync();
         }
     }

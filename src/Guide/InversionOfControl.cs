@@ -1,5 +1,4 @@
 using Discord.WebSocket;
-using Guide.Configuration;
 using Guide.Connection;
 using Guide.Handlers;
 using Guide.Json;
@@ -37,7 +36,6 @@ namespace Guide
             container = new Container(c =>
             {
                 c.For<IConnection>().Use<DiscordConnection>();
-                c.For<IConfiguration>().Use<ConfigManager>();
                 c.For<ICommandHandler>().Use<DiscordCommandHandler>();
                 c.For<ILogger>().Use<ConsoleLogger>();
                 c.ForSingletonOf<IJsonStorage>().UseIfNone<JsonStorage>();
