@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
 using Guide.Logging;
+using Ninject;
 
 namespace Guide.Handlers
 {
@@ -11,12 +12,14 @@ namespace Guide.Handlers
         private readonly DiscordSocketClient client;
         private readonly CommandService commandService;
         private readonly ILogger logger;
+        private readonly IKernel kernel;
 
-        public DiscordCommandHandler(DiscordSocketClient client, CommandService commandService, ILogger logger)
+        public DiscordCommandHandler(DiscordSocketClient client, CommandService commandService, ILogger logger, IKernel kernel)
         {
             this.client = client;
             this.commandService = commandService;
             this.logger = logger;
+            this.kernel = kernel;
         }
 
         public async Task InitializeAsync()
@@ -42,7 +45,7 @@ namespace Guide.Handlers
 
         private async Task TryRunAsBotCommand(SocketCommandContext context, int argPos)
         {
-            var result = await commandService.ExecuteAsync(context, argPos, InversionOfControl.Container);
+            var result = await commandService.ExecuteAsync(context, argPos, kernel);
 
             if(!result.IsSuccess)
             {

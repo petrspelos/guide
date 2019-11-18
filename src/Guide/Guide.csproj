@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="CommonIssues.JsonParser" Version="1.0.8" />
     <PackageReference Include="Discord.Net" Version="2.0.0-beta" />
-    <PackageReference Include="Lamar" Version="*" />
+    <PackageReference Include="ninject" Version="3.3.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="*" />
   </ItemGroup>
   <ItemGroup>
