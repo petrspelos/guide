@@ -5,7 +5,7 @@ using Guide.Core.Services;
 using Guide.Core.UseCases;
 using System.Threading.Tasks;
 
-namespace Guide.Core.Tests
+namespace Guide.Core.Tests.UseCases
 {
     public class ToggleHelperRoleTests
     {

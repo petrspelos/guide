@@ -2,6 +2,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
+using Guide.Core.Exceptions;
+using Guide.Language;
 using Guide.Logging;
 using Ninject;
 
@@ -13,13 +15,15 @@ namespace Guide.Handlers
         private readonly CommandService commandService;
         private readonly ILogger logger;
         private readonly IKernel kernel;
+        private readonly ILanguage _lang;
 
-        public DiscordCommandHandler(DiscordSocketClient client, CommandService commandService, ILogger logger, IKernel kernel)
+        public DiscordCommandHandler(DiscordSocketClient client, CommandService commandService, ILogger logger, IKernel kernel, ILanguage lang)
         {
             this.client = client;
             this.commandService = commandService;
             this.logger = logger;
             this.kernel = kernel;
+            _lang = lang;
         }
 
         public async Task InitializeAsync()
@@ -45,11 +49,18 @@ namespace Guide.Handlers
 
         private async Task TryRunAsBotCommand(SocketCommandContext context, int argPos)
         {
-            var result = await commandService.ExecuteAsync(context, argPos, kernel);
-
-            if(!result.IsSuccess)
+            try
             {
-                logger.Log($"Command execution failed. Reason: {result.ErrorReason}.");
+                var result = await commandService.ExecuteAsync(context, argPos, kernel);
+                
+                if(!result.IsSuccess)
+                {
+                    logger.Log($"Command execution failed. Reason: {result.ErrorReason}.");
+                }
+            }
+            catch(DomainException e)
+            {
+                await context.Channel.SendMessageAsync(string.Format(_lang.GetPhrase("ERROR"), e.Message));
             }
         }
     }
