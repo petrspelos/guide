@@ -1,22 +1,20 @@
 using Discord.Commands;
-using Discord.WebSocket;
 using System.Threading.Tasks;
-using System.Linq;
 using Guide.Language;
 using Guide.Core.Boundaries.ToggleHelperRole;
 
 namespace Guide.Modules
 {
-    public class Helpdesk : ModuleBase<SocketCommandContext>, IToggleHelperRoleOutputPort
+    public class ToggleHelperRole : ModuleBase<SocketCommandContext>, IToggleHelperRoleOutputPort
     {
         private readonly IToggleHelperRole _useCase;
-        private readonly ILanguage lang;
+        private readonly ILanguage _lang;
 
-        public Helpdesk(IToggleHelperRole useCase, ILanguage lang)
+        public ToggleHelperRole(IToggleHelperRole useCase, ILanguage lang)
         {
             _useCase = useCase;
             _useCase.Output = this;
-            this.lang = lang;
+            _lang = lang;
         }
 
         [Command("helper")]
@@ -29,12 +27,12 @@ namespace Guide.Modules
         {
             var phrase = output.RoleAdded ? "HELPER_ADDED" : "HELPER_REMOVED";
 
-            await ReplyAsync(lang.GetPhrase(phrase));
+            await ReplyAsync(_lang.GetPhrase(phrase));
         }
 
         public async void Error(string message)
         {
-            await ReplyAsync(string.Format(lang.GetPhrase("ERROR"), message));
+            await ReplyAsync(string.Format(_lang.GetPhrase("ERROR"), message));
         }
     }
 }
