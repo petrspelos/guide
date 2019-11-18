@@ -21,5 +21,9 @@
         "HERE COMES {0}!"
     ],
     "HELPER_ADDED" : [ ":bell: Thank you for helping this community. Please have this role enabled only when you're actively ready to help." ],
-    "HELPER_REMOVED" : [ ":no_bell: Thank you for helping. See you soon!" ]
+    "HELPER_REMOVED" : [ ":no_bell: Thank you for helping. See you soon!" ],
+    "ERROR" : [
+        ":x: That's a yikers!\n{0}",
+        "Whops, we've got a problem.\n{0}"
+    ]
 }

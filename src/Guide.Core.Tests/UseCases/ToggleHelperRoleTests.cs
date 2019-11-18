@@ -17,7 +17,10 @@ namespace Guide.Core.Tests
         {
             _output = new Mock<IToggleHelperRoleOutputPort>();
             _role = new Mock<IRoleService>();
-            _useCase = new ToggleHelperRole(_output.Object, _role.Object);
+            _useCase = new ToggleHelperRole(_role.Object)
+            {
+                Output = _output.Object
+            };
         }
 
         [Fact]

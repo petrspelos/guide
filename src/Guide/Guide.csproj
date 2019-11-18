@@ -23,4 +23,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Guide.Core\Guide.Core.csproj" />
+  </ItemGroup>
 </Project>

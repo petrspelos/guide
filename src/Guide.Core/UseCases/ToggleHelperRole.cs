@@ -6,12 +6,11 @@ namespace Guide.Core.UseCases
 {
     public sealed class ToggleHelperRole : IToggleHelperRole
     {
-        private readonly IToggleHelperRoleOutputPort _output;
+        public IToggleHelperRoleOutputPort Output { get; set; }
         private readonly IRoleService _roles;
 
-        public ToggleHelperRole(IToggleHelperRoleOutputPort output, IRoleService roles)
+        public ToggleHelperRole(IRoleService roles)
         {
-            _output = output;
             _roles = roles;
         }
 
@@ -20,12 +19,12 @@ namespace Guide.Core.UseCases
             if(await _roles.UserIsHelper(input.UserId))
             {
                 await _roles.UnassignHelperRole(input.UserId);
-                _output.Default(new ToggleHelperRoleOutput(false));
+                Output.Default(new ToggleHelperRoleOutput(false));
             }
             else
             {
                 await _roles.AssignHelperRole(input.UserId);
-                _output.Default(new ToggleHelperRoleOutput(true));
+                Output.Default(new ToggleHelperRoleOutput(true));
             }
         }
     }

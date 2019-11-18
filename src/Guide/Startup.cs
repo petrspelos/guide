@@ -8,6 +8,9 @@ using Guide.Services;
 using Ninject;
 using Ninject.Modules;
 using Discord;
+using Guide.Core.Boundaries.ToggleHelperRole;
+using Guide.Core.UseCases;
+using Guide.Core.Services;
 
 namespace Guide
 {
@@ -34,6 +37,8 @@ namespace Guide
             Bind<ILanguage>().To<JsonLanguage>().InSingletonScope();
             Bind<WelcomeMessageService>().ToSelf().InSingletonScope();
             Bind<DiscordSocketClient>().ToMethod(context => client).InSingletonScope();
+            Bind<IToggleHelperRole>().To<ToggleHelperRole>();
+            Bind<IRoleService>().To<RoleService>();
         }
     }
 }

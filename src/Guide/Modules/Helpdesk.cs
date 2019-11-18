@@ -3,39 +3,38 @@ using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.Linq;
 using Guide.Language;
+using Guide.Core.Boundaries.ToggleHelperRole;
 
 namespace Guide.Modules
 {
-    public class Helpdesk : ModuleBase<SocketCommandContext>
+    public class Helpdesk : ModuleBase<SocketCommandContext>, IToggleHelperRoleOutputPort
     {
+        private readonly IToggleHelperRole _useCase;
         private readonly ILanguage lang;
 
-        public Helpdesk(ILanguage lang)
+        public Helpdesk(IToggleHelperRole useCase, ILanguage lang)
         {
+            _useCase = useCase;
+            _useCase.Output = this;
             this.lang = lang;
         }
 
         [Command("helper")]
         public async Task ToggleHelper()
         {
-            var user = Context.User as SocketGuildUser;
-            var role = Context.Guild.GetRole(Constants.HelperRoleId);
-            var phrase = "HELPER_ADDED";
+            await _useCase.Execute(new ToggleHelperRoleInput(Context.User.Id));
+        }
 
-            if(user.Roles.Any(r => r.Id == role.Id))
-            {
-                await user.RemoveRoleAsync(role);
-                phrase = "HELPER_REMOVED";
-            }
-            else
-            {
-                await user.AddRoleAsync(role);
-            }
+        public async void Default(ToggleHelperRoleOutput output)
+        {
+            var phrase = output.RoleAdded ? "HELPER_ADDED" : "HELPER_REMOVED";
 
-            var message = await ReplyAsync(lang.GetPhrase(phrase));
-            await Task.Delay(5000);
-            await message.DeleteAsync();
-            await Context.Message.DeleteAsync();
+            await ReplyAsync(lang.GetPhrase(phrase));
+        }
+
+        public async void Error(string message)
+        {
+            await ReplyAsync(string.Format(lang.GetPhrase("ERROR"), message));
         }
     }
 }
