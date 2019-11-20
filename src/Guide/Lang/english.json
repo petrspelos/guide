@@ -25,5 +25,8 @@
     "ERROR" : [
         ":x: That's a yikers!\n{0}",
         "Whops, we've got a problem.\n{0}"
+    ],
+    "INVALID_NAME": [
+        "Sorry, before I let you in, you need to make sure your username/nickname is easy to mention on a US-EN keyboard.\nIf you think this is a mistake, please contact a Staff member."
     ]
 }

@@ -29,7 +29,7 @@ namespace Guide.Core.UseCases
             }
 
             await _roles.AssignMemberRole(input.UserId);
-            Output.Default(new AcceptTheRulesOutput());
+            Output.Default(new AcceptTheRulesOutput(input.Username, input.Bio));
         }
     }
 }

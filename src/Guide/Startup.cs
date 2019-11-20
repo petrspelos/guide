@@ -11,6 +11,7 @@ using Discord;
 using Guide.Core.Boundaries.ToggleHelperRole;
 using Guide.Core.UseCases;
 using Guide.Core.Services;
+using Guide.Core.Boundaries.AcceptTheRules;
 
 namespace Guide
 {
@@ -38,7 +39,9 @@ namespace Guide
             Bind<WelcomeMessageService>().ToSelf().InSingletonScope();
             Bind<DiscordSocketClient>().ToMethod(context => client).InSingletonScope();
             Bind<IToggleHelperRole>().To<ToggleHelperRole>();
+            Bind<IAcceptTheRules>().To<AcceptTheRules>();
             Bind<IRoleService>().To<RoleService>();
+            Bind<INameValidator>().To<NameValidator>();
         }
     }
 }
