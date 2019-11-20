@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Guide.Core.Boundaries.ToggleHelperRole;
 using Guide.Core.Services;
@@ -16,6 +17,9 @@ namespace Guide.Core.UseCases
 
         public async Task Execute(ToggleHelperRoleInput input)
         {
+            if(input is null)
+                throw new Exception($"The parameter {nameof(input)} cannot be null.");
+
             if(await _roles.UserIsHelper(input.UserId))
             {
                 await _roles.UnassignHelperRole(input.UserId);

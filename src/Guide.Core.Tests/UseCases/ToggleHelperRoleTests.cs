@@ -4,6 +4,7 @@ using Guide.Core.Boundaries.ToggleHelperRole;
 using Guide.Core.Services;
 using Guide.Core.UseCases;
 using System.Threading.Tasks;
+using System;
 
 namespace Guide.Core.Tests.UseCases
 {
@@ -21,6 +22,12 @@ namespace Guide.Core.Tests.UseCases
             {
                 Output = _output.Object
             };
+        }
+
+        [Fact]
+        public async Task NullInput_ShouldThrow()
+        {
+            await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(null));
         }
 
         [Fact]
