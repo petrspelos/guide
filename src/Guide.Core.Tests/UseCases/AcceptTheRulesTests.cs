@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Guide.Core.Boundaries.AcceptTheRules;
 using Guide.Core.Exceptions;
 using Guide.Core.UseCases;
@@ -22,6 +24,12 @@ namespace Guide.Core.Tests.UseCases
             Assert.Throws<InvalidInputParameterException>(() => {
                 new AcceptTheRulesInput(name, "Bio");
             });
+        }
+
+        [Fact]
+        public async Task NullInput_ShouldThrow()
+        {
+            await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(null));
         }
     }
 }
