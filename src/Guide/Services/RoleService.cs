@@ -15,13 +15,10 @@ namespace Guide.Services
         }
 
         public async Task AssignHelperRole(ulong id)
-        {
-            var guild = _client.GetGuild(Constants.TutorialGuildId);
-            var user = guild.GetUser(id);
-            var role = guild.GetRole(Constants.HelperRoleId);
+            => await AssignRole(id, Constants.HelperRoleId);
 
-            await user.AddRoleAsync(role);
-        }
+        public async Task AssignMemberRole(ulong id)
+            => await AssignRole(id, Constants.MemberRoleId);
 
         public async Task UnassignHelperRole(ulong id)
         {
@@ -39,6 +36,15 @@ namespace Guide.Services
             var role = guild.GetRole(Constants.HelperRoleId);
 
             return Task.FromResult(user.Roles.Contains(role));
+        }
+
+        private async Task AssignRole(ulong userId, ulong roleId)
+        {
+            var guild = _client.GetGuild(Constants.TutorialGuildId);
+            var user = guild.GetUser(userId);
+            var role = guild.GetRole(roleId);
+
+            await user.AddRoleAsync(role);
         }
     }
 }
