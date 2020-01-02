@@ -7,18 +7,18 @@ namespace Guide.Services
 {
     public class UsernameService
     {
-        private readonly DiscordSocketClient client;
+        private readonly DiscordSocketClient _client;
 
         public UsernameService(DiscordSocketClient client)
         {
-            this.client = client;
+            _client = client;
 
             client.UserUpdated += UserUpdated;
         }
 
         private async Task UserUpdated(SocketUser before, SocketUser after)
         {
-            var guildUser = client.GetGuild(Constants.TutorialGuildId).GetUser(after.Id);
+            var guildUser = _client.GetGuild(Constants.TutorialGuildId).GetUser(after.Id);
 
             if (!string.IsNullOrEmpty(guildUser.Nickname)) return;
 

@@ -3,9 +3,9 @@ using Ninject;
 
 namespace Guide
 {
-    class Program
+    internal sealed class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
             => await new Startup().Kernel.Get<Guide>().Run();
     }
 }

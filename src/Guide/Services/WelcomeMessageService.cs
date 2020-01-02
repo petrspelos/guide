@@ -8,12 +8,10 @@ namespace Guide.Services
 {
     public class WelcomeMessageService
     {
-        private readonly DiscordSocketClient client;
         private readonly ILanguage lang;
 
         public WelcomeMessageService(DiscordSocketClient client, ILanguage lang)
         {
-            this.client = client;
             this.lang = lang;
 
             client.UserJoined += UserJoined;
