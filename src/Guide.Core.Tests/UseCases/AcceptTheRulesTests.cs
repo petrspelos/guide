@@ -30,6 +30,7 @@ namespace Guide.Core.Tests.UseCases
         [Theory]
         [InlineData("")]
         [InlineData(null)]
+        [Trait("UseCase", "AcceptTheRules")]
         public void NullOrEmptyName_ShouldThrow(string name)
         {
             Assert.Throws<InvalidInputParameterException>(() => {
@@ -38,6 +39,7 @@ namespace Guide.Core.Tests.UseCases
         }
 
         [Fact]
+        [Trait("UseCase", "AcceptTheRules")]
         public async Task NullInput_ShouldThrow()
         {
             await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(null));
@@ -46,6 +48,7 @@ namespace Guide.Core.Tests.UseCases
         [Theory]
         [InlineData(null)]
         [InlineData("Bio")]
+        [Trait("UseCase", "AcceptTheRules")]
         public async Task InvalidName_ShouldOutputError(string bio)
         {
             const string username = "InvalidUsername";
@@ -61,6 +64,7 @@ namespace Guide.Core.Tests.UseCases
         [Theory]
         [InlineData(null)]
         [InlineData("Bio")]
+        [Trait("UseCase", "AcceptTheRules")]
         public async Task ValidName_ShouldOutputDefault(string bio)
         {
             const string username = "Username";

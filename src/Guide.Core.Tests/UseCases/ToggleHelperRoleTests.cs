@@ -25,12 +25,14 @@ namespace Guide.Core.Tests.UseCases
         }
 
         [Fact]
+        [Trait("UseCase", "ToggleHelperRole")]
         public async Task NullInput_ShouldThrow()
         {
             await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(null));
         }
 
         [Fact]
+        [Trait("UseCase", "ToggleHelperRole")]
         public async Task NonHelper_ShouldGetHelperRole()
         {
             const ulong userId = 873589715;
@@ -43,6 +45,7 @@ namespace Guide.Core.Tests.UseCases
         }
 
         [Fact]
+        [Trait("UseCase", "ToggleHelperRole")]
         public async Task Helper_ShouldLoseHelperRole()
         {
             const ulong userId = 1234556789;
